@@ -1,0 +1,38 @@
+{
+  "Contacts": [
+    {
+      "name": { "first": "John", "last": "Doe" },
+      "profile": "",
+      "phone": [
+        { "type": "Work", "number": 123456789 },
+        { "type": "Home", "number": 987654321 }
+      ],
+      "email": [
+        { "type": "Work", "address": "JohnDoe@Workingplace.com" },
+        { "type": "Personal", "address": "JohnDoe@gmail.com" }
+      ],
+      "social": [
+        { "type": "Facebook", "name": "JohnDoe123" },
+        { "type": "X", "name": "JohnDoe4Ever" }
+      ],
+      "note": "After high school he took a scholarship for mechanical engineering but left college after a year when his teenage sister needed him at home, trading tuition nights for night shifts at a 24-hour garage."
+    },
+    {
+      "name": { "first": "Elena", "last": "Martinez" },
+      "profile": "",
+      "phone": [
+        { "type": "Work", "number": 555238901 },
+        { "type": "Personal", "number": 555771204 }
+      ],
+      "email": [
+        { "type": "Work", "address": "Elena.Martinez@UrbanDesign.co" },
+        { "type": "Personal", "address": "elenamartinez92@gmail.com" }
+      ],
+      "social": [
+        { "type": "Instagram", "name": "elena.builds" },
+        { "type": "LinkedIn", "name": "elena-martinez-ux" }
+      ],
+      "note": "Raised in a bilingual household, she started freelancing as a graphic designer in her late teens and later transitioned into UX design, balancing client work with mentoring first-generation college students."
+    }
+  ]
+}
