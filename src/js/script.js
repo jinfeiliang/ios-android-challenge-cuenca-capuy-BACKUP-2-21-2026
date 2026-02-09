@@ -93,27 +93,27 @@ function Contact_Select(number) {
   let Phones = "";
   if (Information.phone) {
     Information.phone.forEach((phone) => {
-      Phones += `<p class="Information_Contant_Content">${phone.number} (${phone.type})</p>`;
+      Phones += `<p class="Information_Contact_Content">${phone.number} (${phone.type})</p>`;
     });
   }
 
   let Emails = "";
   if (Information.email) {
     Information.email.forEach((email) => {
-      Emails += `<p class="Information_Contant_Content">${email.address} (${email.type})</p>`;
+      Emails += `<p class="Information_Contact_Content">${email.address} (${email.type})</p>`;
     });
   }
 
   let Socials = "";
   if (Information.social) {
     Information.social.forEach((social) => {
-      Socials += `<p class="Information_Contant_Content">${social.name} (${social.type})</p>`;
+      Socials += `<p class="Information_Contact_Content">${social.name} (${social.type})</p>`;
     });
   }
 
   let Note = "";
   if (Information.note) {
-    Note = `<p class="Information_Contant_Content">${Information.note}</p>`;
+    Note = `<p class="Information_Contact_Content">${Information.note}</p>`;
   }
   Information_Main_DOM.innerHTML = "";
 
