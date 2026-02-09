@@ -18,6 +18,7 @@ function Switch_To_Mobile_Info() {
 
 function Switch_To_Contacts() {
   //console.log(Current_Width);
+  Current_Width = window.innerWidth;
   if (Current_Width > Mobile_Width) {
     console.log("Mobile Mode Not Allowed");
     return;
