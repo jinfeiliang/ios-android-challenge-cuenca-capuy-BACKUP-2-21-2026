@@ -67,7 +67,10 @@ const Default_Profile_IMG =
 let Get_Instagram_Link = (user) => {
   return `https://instagram.com/${user}`;
 }
-
+let Formatted_Phone_Number = (number) => {
+  let String_Ver = String(number);
+  return `(${String_Ver.substring(0, 3)}) ${String_Ver.substring(3, 6)}-${String_Ver.substring(6)}`;
+}
 
 
 function Contact_Select(number) {
@@ -100,7 +103,7 @@ function Contact_Select(number) {
   let Phones = "";
   if (Information.phone) {
     Information.phone.forEach((phone) => {
-      Phones += `<p class="Information_Contact_Content">${phone.number} (${phone.type})</p>`;
+      Phones += `<p class="Information_Contact_Content">${Formatted_Phone_Number(phone.number)} (${phone.type})</p>`;
     });
   }
 
@@ -284,7 +287,6 @@ function EmailTo(address){
   console.log(address);
   window.open(`mailto:${address}`);
 }
-
 
 
 
