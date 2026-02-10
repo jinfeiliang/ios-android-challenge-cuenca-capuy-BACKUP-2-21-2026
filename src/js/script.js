@@ -41,7 +41,6 @@ const Contact_Categories = [
 
 const Contacts_Container_DOM = document.querySelector("#Contacts_Container");
 
-
 function Load_All_Categories() {
   Contacts_Container_DOM.innerHTML = "";
   Contact_Categories.forEach((Section_Name) => {
@@ -66,12 +65,11 @@ const Default_Profile_IMG =
 
 let Get_Instagram_Link = (user) => {
   return `https://instagram.com/${user}`;
-}
+};
 let Formatted_Phone_Number = (number) => {
   let String_Ver = String(number);
   return `(${String_Ver.substring(0, 3)}) ${String_Ver.substring(3, 6)}-${String_Ver.substring(6)}`;
-}
-
+};
 
 function Contact_Select(number) {
   console.log(number + " has been selected");
@@ -81,8 +79,11 @@ function Contact_Select(number) {
   }
   console.log(Information);
   let Profile = Default_Profile_IMG;
-  if (Information.Profile != "" && Information.Profile != undefined) {
-    Profile = Information.Profile;
+  if (Information.profile != "" && Information.profile != undefined) {
+    Profile = Information.profile;
+    console.log("Profile Pic Found");
+  } else {
+    console.log("Profile Pic Not Found");
   }
   Information_Profile_DOM.src = Profile;
 
@@ -267,13 +268,13 @@ function Load_All_Contacts() {
     });
   } else {
     let Ordered_Contacts = Local_Contacts.sort((a, b) =>
-        a.name.first.localeCompare(b.name.first),
+      a.name.first.localeCompare(b.name.first),
     );
     Display_Contacts(Ordered_Contacts);
     Loaded_Contacts = Local_Contacts;
   }
   if (First_Load) {
-    Contact_Select(Loaded_Contacts[0].phone[0].number)
+    Contact_Select(Loaded_Contacts[0].phone[0].number);
   }
 }
 
@@ -283,17 +284,10 @@ Contacts_Search_Filter_Input_DOM.addEventListener("input", () => {
   Load_All_Contacts();
 });
 
-function EmailTo(address){
+function EmailTo(address) {
   console.log(address);
   window.open(`mailto:${address}`);
 }
-
-
-
-
-
-
-
 
 // Phones, Emails. Socials, Note
 

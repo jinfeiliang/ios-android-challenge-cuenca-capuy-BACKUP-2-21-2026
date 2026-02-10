@@ -118,7 +118,8 @@ main {
   text-align: left;
   padding: 8px 10px;
   border: 0;
-  color: rgb(85, 85, 85);
+  /* color: rgb(85, 85, 85); */
+
   background-color: white;
 }
 .Contacts::first-letter {
@@ -143,6 +144,10 @@ main {
 }
 .Information_Profile {
   height: 100px;
+  width: 100px;
+  object-position: center;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .Information_Interact {
