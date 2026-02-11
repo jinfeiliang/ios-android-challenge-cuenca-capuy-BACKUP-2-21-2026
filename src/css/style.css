@@ -230,6 +230,25 @@ main {
   cursor: pointer;
 }
 
+
+.Edit_Add_Section {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+#Edit_Add_Container {
+  background-color: gray;
+  padding: 8px;
+}
+
+.Edit_Container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
 @media screen and (max-width: 630px) {
   /* … */
   .Contacts_Section {

@@ -8,6 +8,10 @@
     <link href="src/css/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <datalist id="Phone_Types">
+      <option value="Work"></option>
+      <option value="Personal"></option>
+    </datalist>
     <main>
       <!-- <div id="Contacts-Container"></div> -->
 
@@ -131,6 +135,36 @@
           
         </div>
       </section>
+
+      <section class="Edit_Add_Section">
+        <div id="Edit_Add_Container">
+          
+          <div id="Edit_Name_Container" class="Edit_Container">
+            <label class="Edit_Label">First</label>
+            <input class="Edit_Input" placeholder="First Name">
+            <input class="Edit_Input" placeholder="Last Name">
+          </div>
+
+          <div id="Edit_Phone_Number_Container" class="Edit_Container">
+            <label class="Edit_Label">Phone</label>
+            <div class="Phone_Number_Container">
+              <input type="text" class="Type_Input" list="Phone_Types">
+              <input class="Edit_Input" placeholder="Phone">
+            </div>
+            <div class="Phone_Number_Container">
+              <input type="text" class="Type_Input" list="Phone_Types">
+              <input class="Edit_Input" placeholder="Phone">
+            </div>
+            <div class="Add_More_Container">
+              <button>+</button>
+            </div>
+            
+            
+          </div>
+          
+        </div>
+      </section>
+
     </main>
     <script src="src/js/script.js"></script>
     <script src="src/js/mobile.js"></script>
