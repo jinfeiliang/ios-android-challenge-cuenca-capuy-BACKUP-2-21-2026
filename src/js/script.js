@@ -285,7 +285,7 @@ function Save_All_Contacts() {
   if (Global_Contacts == [] || Global_Contacts == "" || Global_Contacts == undefined) {
     console.log("Cannot save because Global_Contacts is empty or invalid");
   }
-  localStorage.setItem(Saved_Data_LocalStorage_Name, Global_Contacts);
+  localStorage.setItem(Saved_Data_LocalStorage_Name, JSON.stringify(Global_Contacts));
 }
 
 function Load_All_Contacts() {
