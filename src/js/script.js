@@ -39,7 +39,7 @@ const Contact_Categories = [
   "Z",
 ];
 let Global_Contacts = [];
-
+let Saved_Data_LocalStorage_Name = "Saved_Contacts";
 const Contacts_Container_DOM = document.querySelector("#Contacts_Container");
 
 function Load_All_Categories() {
@@ -72,13 +72,15 @@ let Formatted_Phone_Number = (number) => {
   return `(${String_Ver.substring(0, 3)}) ${String_Ver.substring(3, 6)}-${String_Ver.substring(6)}`;
 };
 
+let Current_Selected_Contact_Index = 0;
 
 function Edit_Contact(index){
   let Contact = 1;
 }
-Edit_Contact(0)
+
 
 function Contact_Select(index) {
+  Current_Selected_Contact_Index = index;
   console.log(index + " has been selected");
   let Information = Global_Contacts.contacts[index];
   if (Information == "" || Information == undefined) {
@@ -279,8 +281,15 @@ function Display_Contacts() {
 //   }
 // }
 
+function Save_All_Contacts() {
+  if (Global_Contacts == [] || Global_Contacts == "" || Global_Contacts == undefined) {
+    console.log("Cannot save because Global_Contacts is empty or invalid");
+  }
+  localStorage.setItem(Saved_Data_LocalStorage_Name, Global_Contacts);
+}
+
 function Load_All_Contacts() {
-  let Local_Contacts = JSON.parse(localStorage.getItem("Saved_Contacts"));
+  let Local_Contacts = JSON.parse(localStorage.getItem(Saved_Data_LocalStorage_Name));
   
   if (Local_Contacts != undefined && Local_Contacts != "" && Local_Contacts != []) {
     let Sorted = Local_Contacts.contacts.sort( (a, b) => a.name.first.localeCompare(b.name.first));
@@ -291,6 +300,7 @@ function Load_All_Contacts() {
     console.log(Contacts_Ordered);
 
     Display_Contacts();
+    Contact_Select(Current_Selected_Contact_Index);
   } else {
 
     let Promise = Get_All_Contacts();
@@ -300,10 +310,11 @@ function Load_All_Contacts() {
       Contacts_Ordered.contacts = Sorted;
 
       Global_Contacts = Contacts_Ordered;
-      localStorage.setItem("Saved_Contacts", JSON.stringify(Global_Contacts));
+      localStorage.setItem(Saved_Data_LocalStorage_Name , JSON.stringify(Global_Contacts));
       console.log(Contacts_Ordered);
 
       Display_Contacts();
+      Contact_Select(Current_Selected_Contact_Index);
     })
 
   }
