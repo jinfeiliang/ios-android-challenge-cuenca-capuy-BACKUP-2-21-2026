@@ -70,6 +70,14 @@
         {
           "type": "Personal",
           "number": 555300002
+        },
+                {
+          "type": "Work",
+          "number": 2452421
+        },
+                {
+          "type": "Friends",
+          "number": 424245245
         }
       ],
       "email": [

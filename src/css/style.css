@@ -230,24 +230,29 @@ main {
   cursor: pointer;
 }
 
-
 .Edit_Add_Section {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.Edit_Add_Section.Closed {
+  display: none;
 }
 #Edit_Add_Container {
   background-color: gray;
   padding: 8px;
+  border: 2px solid white;
 }
 
 .Edit_Container {
   display: flex;
   flex-direction: column;
 }
-
-
-
 
 @media screen and (max-width: 630px) {
   /* … */
@@ -259,6 +264,10 @@ main {
     height: 100%;
     width: 100%;
     translate: 100%;
+  }
+  #Edit_Add_Container {
+    width: 100%;
+    height: 100%;
   }
 }
 @media screen and (min-width: 631px) {

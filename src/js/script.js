@@ -74,23 +74,88 @@ let Formatted_Phone_Number = (number) => {
 
 let Current_Selected_Contact_Index = 0;
 
-function Edit_Contact(index){
-  let Contact = 1;
+let Edit_Temp_Contact = [];
+
+let Phone_Number_Content = document.querySelector(".Phone_Number_Content");
+
+function Display_Edit_Contact() {
+  document.querySelector("#Edit_First_Name").value =
+    Edit_Temp_Contact.name.first;
+  document.querySelector("#Edit_First_Name").setAttribute("oninput", `Update_Information_Item('name', "N/A", 'first', this.value)`)
+
+  document.querySelector("#Edit_Last_Name").value = Edit_Temp_Contact.name.last;
+  document.querySelector("#Edit_Last_Name").setAttribute("oninput", `Update_Information_Item('name', "N/A", 'last', this.value)`)
+
+
+  Phone_Number_Content.innerHTML = "";
+  Edit_Temp_Contact.phone.forEach((Object, index) => {
+    let HTML = `<div class="Phone_Number_Container">
+                <button onclick="Delete_Information_Item('phone',${index})">-</button>
+                <input required type="text" class="Type_Input" list="Phone_Types" value="${Object.type}" oninput="Update_Information_Item('phone', ${index}, 'type', this.value)">
+                <input required type="number" class="Edit_Input" placeholder="Phone" value="${Object.number}" oninput="Update_Information_Item('phone', ${index}, 'number', Number(this.value))">
+              </div>`;
+    Phone_Number_Content.insertAdjacentHTML("beforeend", HTML);
+  });
 }
 
+function Load_Edit_Contact() {
+  Edit_Temp_Contact = structuredClone(
+    Global_Contacts[Current_Selected_Contact_Index],
+  );
+  console.log(Edit_Temp_Contact);
+  Display_Edit_Contact();
+}
+
+function Cancel_Edit_Contact() {
+  Edit_Temp_Contact = [];
+  document.querySelector(".Edit_Add_Section").classList.add("Closed");
+}
+function Open_Edit_Contact() {
+  Edit_Temp_Contact = [];
+  document.querySelector(".Edit_Add_Section").classList.remove("Closed");
+  Load_Edit_Contact();
+}
+
+function Update_Information_Item(Section, Index, Key, NewValue) {
+  if (Index == "N/A"){
+    Edit_Temp_Contact[Section][Key] = NewValue;
+  } else {
+    Edit_Temp_Contact[Section][Index][Key] = NewValue;
+  }
+  
+}
+function Delete_Information_Item(category, index) {
+  console.log(Edit_Temp_Contact[category]);
+
+  Edit_Temp_Contact[category].splice(index, 1);
+  console.log(Edit_Temp_Contact);
+  Display_Edit_Contact();
+}
+
+function Save_Edit_Information() {
+  Global_Contacts[Current_Selected_Contact_Index] = Edit_Temp_Contact;
+  Save_All_Contacts();
+  Load_All_Contacts()
+  document.querySelector(".Edit_Add_Section").classList.add("Closed");
+}
 
 function Contact_Select(index) {
   Current_Selected_Contact_Index = index;
-  console.log(index + " has been selected");
+
+  const url = new URL(window.location);
+  url.searchParams.set("Contact_Selected", Current_Selected_Contact_Index);
+  window.history.replaceState({}, "", url);
+
+  //console.log(index + " has been selected");
   let Information = Global_Contacts.contacts[index];
   if (Information == "" || Information == undefined) {
     console.log("No Profile Found");
   }
-  console.log(Information);
+  //console.log(Information);
   let Profile = Default_Profile_IMG;
   if (Information.profile != "" && Information.profile != undefined) {
     Profile = Information.profile;
-    console.log("Profile Pic Found");
+    //console.log("Profile Pic Found");
   } else {
     console.log("Profile Pic Not Found");
   }
@@ -203,7 +268,6 @@ async function Get_All_Contacts() {
 let Contacts_Search_Filter_Input_DOM =
   document.querySelector("#Contacts_Search");
 
-
 // function Find_Profile_By_Number(Phone_Number) {
 //   if (Current_Contacts == undefined || Current_Contacts == []) {
 //     console.log("Current Contacts are empty, can't find");
@@ -216,13 +280,11 @@ let Contacts_Search_Filter_Input_DOM =
 // }
 
 function Display_Contacts() {
-
   Load_All_Categories();
   Global_Contacts.contacts.forEach((Contact, index) => {
-
     let Full_Name = `${Contact.name.first} ${Contact.name.last}`;
     let Initial_Letter = Contact.name.first[0];
-    console.log(Initial_Letter);
+    //console.log(Initial_Letter);
     let Letter_Category = document.querySelector(
       `#Contacts_Holder_${Initial_Letter}`,
     );
@@ -282,48 +344,69 @@ function Display_Contacts() {
 // }
 
 function Save_All_Contacts() {
-  if (Global_Contacts == [] || Global_Contacts == "" || Global_Contacts == undefined) {
+  if (
+    Global_Contacts == [] ||
+    Global_Contacts == "" ||
+    Global_Contacts == undefined
+  ) {
     console.log("Cannot save because Global_Contacts is empty or invalid");
+    return;
   }
-  localStorage.setItem(Saved_Data_LocalStorage_Name, JSON.stringify(Global_Contacts));
+
+  let Proper_Format = {"contacts": Global_Contacts}
+  localStorage.setItem(
+    Saved_Data_LocalStorage_Name,
+    JSON.stringify(Proper_Format),
+  );
 }
 
 function Load_All_Contacts() {
-  let Local_Contacts = JSON.parse(localStorage.getItem(Saved_Data_LocalStorage_Name));
-  
-  if (Local_Contacts != undefined && Local_Contacts != "" && Local_Contacts != []) {
-    let Sorted = Local_Contacts.contacts.sort( (a, b) => a.name.first.localeCompare(b.name.first));
+  let Local_Contacts = JSON.parse(
+    localStorage.getItem(Saved_Data_LocalStorage_Name),
+  );
+
+  if (
+    Local_Contacts != undefined &&
+    Local_Contacts != "" &&
+    Local_Contacts != []
+  ) {
+    let Sorted = Local_Contacts.contacts.sort((a, b) =>
+      a.name.first.localeCompare(b.name.first),
+    );
     let Contacts_Ordered = Sorted;
     Contacts_Ordered.contacts = Sorted;
 
     Global_Contacts = Contacts_Ordered;
-    console.log(Contacts_Ordered);
+    //onsole.log(Contacts_Ordered);
 
     Display_Contacts();
     Contact_Select(Current_Selected_Contact_Index);
   } else {
-
     let Promise = Get_All_Contacts();
-    Promise.then( (Contacts) => {
-      let Sorted = Contacts.contacts.sort( (a , b) => a.name.first.localeCompare(b.name.first));
+    Promise.then((Contacts) => {
+      let Sorted = Contacts.contacts.sort((a, b) =>
+        a.name.first.localeCompare(b.name.first),
+      );
       let Contacts_Ordered = Contacts;
       Contacts_Ordered.contacts = Sorted;
 
       Global_Contacts = Contacts_Ordered;
-      localStorage.setItem(Saved_Data_LocalStorage_Name , JSON.stringify(Global_Contacts));
+      localStorage.setItem(
+        Saved_Data_LocalStorage_Name,
+        JSON.stringify(Global_Contacts),
+      );
       console.log(Contacts_Ordered);
 
       Display_Contacts();
       Contact_Select(Current_Selected_Contact_Index);
-    })
-
+    });
   }
-
 }
 
 
 
-
+let urlParams = new URLSearchParams(window.location.search);
+Current_Selected_Contact_Index = urlParams.get("Contact_Selected") || 0;
 
 Load_All_Contacts();
 Contacts_Search_Filter_Input_DOM.addEventListener("input", () => {
@@ -335,6 +418,11 @@ function EmailTo(address) {
   console.log(address);
   window.open(`mailto:${address}`);
 }
+
+document.querySelector("#Edit_Submit_BTN").addEventListener("click", (e) => {
+  e.preventDefault();
+});
+
 
 // Phones, Emails. Socials, Note
 

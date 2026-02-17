@@ -61,9 +61,9 @@
 
       <section class="Information_Section">
         <div class="Information_Top">
-          <nav class="Top_Nav">
+          <nav class="Information_Top_Nav">
             <button id="Return_To_Main_BTN">Go Back</button>
-            <button>Edit</button>
+            <button onclick="Open_Edit_Contact()">Edit</button>
             
           </nav>
           <div class="Information_Identity">
@@ -136,33 +136,38 @@
         </div>
       </section>
 
-      <section class="Edit_Add_Section">
-        <div id="Edit_Add_Container">
+      <section class="Edit_Add_Section Closed">
+        <form id="Edit_Add_Container">
           
+          <div class="Edit_Top">
+            <nav class="Top_Edit_Nav">
+              <button onclick="Cancel_Edit_Contact()">Cancel</button>
+              <button id="Edit_Submit_BTN" type="submit" onclick="Save_Edit_Information()">Done</button>
+            </nav>
+          </div>
+
           <div id="Edit_Name_Container" class="Edit_Container">
             <label class="Edit_Label">First</label>
-            <input class="Edit_Input" placeholder="First Name">
-            <input class="Edit_Input" placeholder="Last Name">
+            <input required id="Edit_First_Name" class="Edit_Input" placeholder="First Name">
+            <input required id="Edit_Last_Name" class="Edit_Input" placeholder="Last Name">
           </div>
 
           <div id="Edit_Phone_Number_Container" class="Edit_Container">
             <label class="Edit_Label">Phone</label>
-            <div class="Phone_Number_Container">
-              <input type="text" class="Type_Input" list="Phone_Types">
-              <input class="Edit_Input" placeholder="Phone">
+            <div class="Phone_Number_Content">
+              
+               
+              
             </div>
-            <div class="Phone_Number_Container">
-              <input type="text" class="Type_Input" list="Phone_Types">
-              <input class="Edit_Input" placeholder="Phone">
-            </div>
+            
             <div class="Add_More_Container">
-              <button>+</button>
+              <button onclick="">+</button>
             </div>
             
             
           </div>
           
-        </div>
+        </form>
       </section>
 
     </main>
