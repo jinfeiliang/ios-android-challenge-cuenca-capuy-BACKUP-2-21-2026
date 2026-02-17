@@ -77,6 +77,10 @@ let Current_Selected_Contact_Index = 0;
 let Edit_Temp_Contact = [];
 
 let Phone_Number_Content = document.querySelector(".Phone_Number_Content");
+let Email_Content = document.querySelector(".Email_Content");
+let Social_Content = document.querySelector(".Social_Content");
+
+
 
 function Display_Edit_Contact() {
   document.querySelector("#Edit_First_Name").value =
@@ -96,6 +100,33 @@ function Display_Edit_Contact() {
               </div>`;
     Phone_Number_Content.insertAdjacentHTML("beforeend", HTML);
   });
+
+  Email_Content.innerHTML = "";
+  Edit_Temp_Contact.email.forEach((Object, index) => {
+    let HTML = `<div class="Email_Container">
+                <button onclick="Delete_Information_Item('email',${index})">-</button>
+                <input required type="text" class="Type_Input" list="Phone_Types" value="${Object.type}" oninput="Update_Information_Item('email', ${index}, 'type', this.value)">
+                <input required type="text" class="Edit_Input" placeholder="Address" value="${Object.address}" oninput="Update_Information_Item('email', ${index}, 'address', this.value)">
+              </div>`;
+    Email_Content.insertAdjacentHTML("beforeend", HTML);
+  });
+
+  Social_Content.innerHTML = "";
+  Edit_Temp_Contact.social.forEach((Object, index) => {
+    let HTML = `<div class="Social_Container">
+                <button onclick="Delete_Information_Item('social',${index})">-</button>
+                <input required type="text" class="Type_Input" list="Phone_Types" value="${Object.type}" oninput="Update_Information_Item('social', ${index}, 'type', this.value)">
+                <input required type="text" class="Edit_Input" placeholder="Social Platform" value="${Object.name}" oninput="Update_Information_Item('social', ${index}, 'name', this.value)">
+              </div>`;
+    Social_Content.insertAdjacentHTML("beforeend", HTML);
+  });
+
+
+
+
+
+
+
 }
 
 function Load_Edit_Contact() {
