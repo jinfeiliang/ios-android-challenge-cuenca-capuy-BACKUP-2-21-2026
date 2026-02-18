@@ -3,50 +3,54 @@ let Mobile_Width = 630;
 let Contacts_Section = document.querySelector(".Contacts_Section");
 let Information_Section = document.querySelector(".Information_Section");
 let Return_To_Main_BTN = document.querySelector("#Return_To_Main_BTN");
-let Edit_Cancel_BTN = document.querySelector("#Edit_Cancel_BTN");
+let Edit_Add_Section = document.querySelector(".Edit_Add_Section");
+
 
 let Current_Width = window.innerWidth;
 
-function Switch_To_Mobile_Info() {
-  //console.log(Current_Width);
-  if (Current_Width > Mobile_Width) {
-    console.log("Mobile Mode Not Allowed");
-    return;
+
+
+
+
+let Current_Window = Contacts_Section;
+
+function Move_To(Animation) {
+  if (Animation) {
+    Current_Window.scrollIntoView({ behavior: "smooth" });
+  } else {
+    Current_Window.scrollIntoView();
   }
-  console.log("Switching to Mobile Info");
-  Information_Section.scrollIntoView({ behavior: "smooth" });
+  
 }
+
+
+
+function Switch_To_Edit() {
+  Current_Window = Edit_Add_Section;
+  Move_To()
+}
+
 function Switch_To_Contacts() {
-  //console.log(Current_Width);
-  Current_Width = window.innerWidth;
-  if (Current_Width > Mobile_Width) {
-    console.log("Mobile Mode Not Allowed");
-    return;
-  }
-  console.log("Switching to Contacts");
-  Contacts_Section.scrollIntoView({ behavior: "smooth" });
+  Current_Window = Contacts_Section;
+  Move_To()
+}
+
+function Switch_To_Mobile_Info() {
+  Current_Window = Information_Section;
+  Move_To()
 }
 
 
-Return_To_Main_BTN.addEventListener("click", Switch_To_Contacts);
 
-Edit_Cancel_BTN.addEventListener("click", Switch_To_Mobile_Info);
+
+
 
 let resizerTimer;
-
 function Update() {
   clearTimeout(resizerTimer);
   resizerTimer = setTimeout(() => {
     if (window.innerWidth != Current_Width) {
-      if (
-        Current_Width <= Mobile_Width &&
-        Information_Section.classList.contains("Mobile") == false
-      ) {
-        Information_Section.classList.add("Mobile");
-      } else {
-        Information_Section.classList.remove("Mobile");
-        Switch_To_Contacts();
-      }
+      Move_To(false);
     }
   }, 200);
 }
