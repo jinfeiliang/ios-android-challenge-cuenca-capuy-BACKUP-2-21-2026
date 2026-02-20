@@ -377,6 +377,15 @@ function Display_Contacts() {
     let HTML = `<button class="Contacts" onClick="Contact_Select(${index}); Switch_To_Mobile_Info()">${Contact.name.first} ${Contact.name.last}</button>`;
     Letter_Category.insertAdjacentHTML("beforeend", HTML);
   });
+
+  Contacts_Container.querySelectorAll(".Contacts_Category").forEach( (Contacts_Category) => {
+    let Any_Contact = Contacts_Category.querySelector(".Contacts_Holder").querySelector("button");
+    console.log("Test");
+    if (Any_Contact == undefined){
+      Contacts_Category.style.display = "none";
+    }
+  })
+
 }
 
 // let First_Load = true;
