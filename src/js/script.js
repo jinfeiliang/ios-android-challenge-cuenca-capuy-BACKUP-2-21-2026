@@ -172,7 +172,7 @@ const Information_Contact_Field_Templates = {
 };
 
 function Add_Edit_Information_Contact_Field(field_type) {
-  let Template = Information_Contact_Field_Templates[field_type];
+  let Template = structuredClone(Information_Contact_Field_Templates[field_type]);
   console.log(Template);
   Edit_Temp_Contact[field_type].push(Template);
   Display_Edit_Contact();
