@@ -127,6 +127,14 @@ function Display_Edit_Contact() {
               </div>`;
     Social_Content.insertAdjacentHTML("beforeend", HTML);
   });
+
+  document.querySelector("#Edit_Note").value = Edit_Temp_Contact.note;
+  document
+    .querySelector("#Edit_Note")
+    .setAttribute(
+      "oninput",
+      `Update_Information_Item('note', "N/A", 'N/A', this.value)`,
+    );
 }
 
 function Load_Edit_Contact() {
@@ -140,25 +148,25 @@ function Load_Edit_Contact() {
 function Cancel_Edit_Contact() {
   Edit_Temp_Contact = [];
   document.querySelector("#Edit_Add_Container").classList.add("Zoom_Out");
-  setTimeout( () => {
+  setTimeout(() => {
     document.querySelector(".Edit_Add_Section").classList.add("Closed");
     document.querySelector("#Edit_Add_Container").classList.remove("Zoom_Out");
-  }, 350)
-  
+  }, 350);
 }
 function Open_Edit_Contact() {
   Edit_Temp_Contact = [];
   document.querySelector(".Edit_Add_Section").classList.remove("Closed");
   Load_Edit_Contact();
   document.querySelector("#Edit_Add_Container").classList.add("Zoom_In");
-  setTimeout( () => {
+  setTimeout(() => {
     document.querySelector("#Edit_Add_Container").classList.remove("Zoom_In");
-  }, 350)
-
+  }, 350);
 }
 
 function Update_Information_Item(Section, Index, Key, NewValue) {
-  if (Index == "N/A") {
+  if (Index == "N/A" && Key == "N/A") {
+    Edit_Temp_Contact[Section] = NewValue;
+  } else if (Index == "N/A") {
     Edit_Temp_Contact[Section][Key] = NewValue;
   } else {
     Edit_Temp_Contact[Section][Index][Key] = NewValue;
@@ -172,7 +180,9 @@ const Information_Contact_Field_Templates = {
 };
 
 function Add_Edit_Information_Contact_Field(field_type) {
-  let Template = structuredClone(Information_Contact_Field_Templates[field_type]);
+  let Template = structuredClone(
+    Information_Contact_Field_Templates[field_type],
+  );
   console.log(Template);
   Edit_Temp_Contact[field_type].push(Template);
   Display_Edit_Contact();
