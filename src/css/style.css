@@ -162,6 +162,7 @@ main {
 
 .Information_Section {
   flex-grow: 1;
+  overflow-y: auto;
 }
 
 .Information_Identity {
