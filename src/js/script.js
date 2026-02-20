@@ -522,6 +522,11 @@ function Load_All_Contacts() {
 let urlParams = new URLSearchParams(window.location.search);
 Current_Selected_Contact_Index = urlParams.get("Contact_Selected") || 0;
 
+if (Current_Selected_Contact_Index < 0 ){
+  console.log("Out of Bounds");
+  Current_Selected_Contact_Index = 0;
+}
+
 Load_All_Contacts();
 
 Contacts_Search_Filter_Input_DOM.addEventListener("input", () => {
@@ -534,13 +539,39 @@ function EmailTo(address) {
   window.open(`mailto:${address}`);
 }
 
+
+
+function areObjectsEqual(obj1, obj2) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+    for (const key of keys1) {
+        if (obj1[key] !== obj2[key]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
 let Edit_Add_Container = document.querySelector("#Edit_Add_Container");
 
 Edit_Add_Container.addEventListener("submit", (e) => {
   e.preventDefault();
   if (Edit_Add_Container.checkValidity()) {
     Save_Edit_Information();
+    let Index = Global_Contacts.contacts.findIndex( (item) => JSON.stringify(item) == JSON.stringify(Edit_Temp_Contact));
+
+
+    console.log("Index after saving:" + Index);
+    if (Index) {
+      Contact_Select(Index);
+    }
     Cancel_Edit_Contact();
+    
   }
 });
 
