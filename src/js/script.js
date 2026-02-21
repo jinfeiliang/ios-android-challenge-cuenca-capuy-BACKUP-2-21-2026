@@ -324,7 +324,7 @@ function Contact_Select(index) {
 
 async function Get_All_Contacts() {
   try {
-    const response = await fetch("../src/data/api.json");
+    const response = await fetch("/src/data/api.json");
     if (!response.ok) {
       throw new Error(`Reponse status: ${response.status}`);
     }
